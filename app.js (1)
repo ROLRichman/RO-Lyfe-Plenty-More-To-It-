@@ -1,0 +1,74 @@
+(() => {
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+
+  function updateClock(){
+    const d = new Date();
+    $("#clock").textContent = d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  }
+  setInterval(updateClock, 1000); updateClock();
+
+  function showSection(name){
+    $$(".section").forEach(s => s.classList.remove("active"));
+    const target = $("#" + name + "Section");
+    if(target) target.classList.add("active");
+    $$(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.section === name));
+  }
+  $$(".nav-item").forEach(b => b.addEventListener("click", () => showSection(b.dataset.section)));
+
+  $$(".mode-btn").forEach(b => b.addEventListener("click", () => {
+    $$(".mode-btn").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    showSection(b.dataset.mode === "comic" ? "comic" : b.dataset.mode === "tactical" ? "tools" : "book");
+  }));
+
+  $("#chapterGrid").innerHTML = window.ROLYFE_CHAPTERS.map(c =>
+    `<article class="chapter-card"><div class="eyebrow">CHAPTER ${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p><button class="secondary read-chapter">Read Chapter</button></article>`
+  ).join("");
+
+  function renderCharacters(){
+    const q = ($("#characterSearch").value || "").toLowerCase();
+    const cat = $("#comicCategory").value;
+    const items = window.ROLYFE_CHARACTERS.filter(c =>
+      (cat === "all" || c[2] === cat) && c[0].toLowerCase().includes(q)
+    );
+    $("#characterGrid").innerHTML = items.map(c => {
+      const search = encodeURIComponent(c[3]);
+      const url = window.rolyfeAffiliateUrl("search?q=" + search);
+      return `<article class="character-card"><div class="eyebrow">${c[1]}</div><h3>${c[0]}</h3><div class="meta">Discovery link • third-party character</div><a href="${url}" target="_blank" rel="noopener noreferrer">Find on MyComicShop →</a></article>`;
+    }).join("");
+  }
+  $("#characterSearch").addEventListener("input", renderCharacters);
+  $("#comicCategory").addEventListener("change", renderCharacters);
+  renderCharacters();
+
+  $("#shopLink").href = window.rolyfeAffiliateUrl("");
+  $("#resourceGrid").innerHTML = window.ROLYFE_RESOURCES.map(r =>
+    `<article class="resource-card" style="padding:18px"><div class="eyebrow">${r.category}</div><h3>${r.name}</h3><p>${r.description}</p><a href="${r.affiliate && r.name === "MyComicShop" ? window.rolyfeAffiliateUrl("") : r.url}" target="_blank" rel="noopener noreferrer">Open Resource →</a></article>`
+  ).join("");
+
+  $("#rrBtn").addEventListener("click", () => {
+    const risk = Number($("#riskAmount").value);
+    const reward = Number($("#rewardAmount").value);
+    $("#rrResult").textContent = risk > 0 ? `Risk/Reward: 1 : ${(reward/risk).toFixed(2)}` : "Enter a risk amount greater than zero.";
+  });
+
+  $("#readAloudBtn").addEventListener("click", () => {
+    if (!("speechSynthesis" in window)) return alert("Read-aloud is not supported by this browser.");
+    speechSynthesis.cancel();
+    speechSynthesis.speak(new SpeechSynthesisUtterance("Plenty more to it. But I would rather show you."));
+  });
+
+  $("#readBookBtn").addEventListener("click", () => {
+    document.querySelector(".chapter-card")?.scrollIntoView({behavior:"smooth"});
+  });
+
+  $("#aiBtn").addEventListener("click", () => $("#aiPanel").hidden = false);
+  $("#closeAi").addEventListener("click", () => $("#aiPanel").hidden = true);
+  $$(".ai-action").forEach(b => b.addEventListener("click", () => $("#aiAnswer").textContent = b.dataset.answer));
+
+  // Placeholder until the real affiliate ID is entered.
+  if (!window.ROLYFE_LINKS.myComicShop.affiliateId) {
+    console.info("RO’Lyfe: MyComicShop affiliate ID not configured yet. Links currently open without affiliate tracking.");
+  }
+})();

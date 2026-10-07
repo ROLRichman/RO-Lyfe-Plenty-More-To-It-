@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RO’Lyfe Plenty More To It — an interactive digital book and ComicVerse experience.">
+  <title>RO’Lyfe | Plenty More To It</title>
+  <link rel="stylesheet" href="css/book.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">RO’L</span>
+        <div>
+          <strong>RO’Lyfe</strong>
+          <small>Plenty More To It</small>
+        </div>
+      </div>
+      <div class="mode-switcher" aria-label="Experience mode">
+        <button class="mode-btn active" data-mode="book">📖 Book</button>
+        <button class="mode-btn" data-mode="comic">🦸 ComicVerse</button>
+        <button class="mode-btn" data-mode="tactical">📈 Tactical</button>
+      </div>
+      <div class="top-status">
+        <span id="clock">--:--</span>
+        <span id="sessionStatus">EDUCATIONAL</span>
+      </div>
+    </header>
+
+    <div class="ticker">
+      <span>RO’LYFE INTELLIGENCE</span>
+      <span>ANALYZE</span><span>UNDERSTAND</span><span>LEARN</span>
+      <span>BUILD</span><span>REPEAT</span>
+    </div>
+
+    <main class="workspace">
+      <aside class="sidebar" id="sidebar">
+        <div class="side-title">EXPLORE</div>
+        <button class="nav-item active" data-section="book">📖 The Book</button>
+        <button class="nav-item" data-section="comic">🦸 ComicVerse</button>
+        <button class="nav-item" data-section="resources">🔗 Resources</button>
+        <button class="nav-item" data-section="tools">🧰 Tools</button>
+        <button class="nav-item" data-section="about">ℹ️ About</button>
+      </aside>
+
+      <section class="content" id="content">
+        <section id="bookSection" class="section active">
+          <div class="hero-card">
+            <div class="eyebrow">INTERACTIVE BOOK • ISSUE 001</div>
+            <h1>PLENTY MORE TO IT</h1>
+            <p class="subtitle">But I’d Rather Show You.</p>
+            <p>Explore the ideas behind discipline, systems, business, capital, real estate, trading, technology and the mindset behind building your own path.</p>
+            <div class="actions">
+              <button class="primary" id="readBookBtn">Start Reading</button>
+              <button class="secondary" id="readAloudBtn">🔊 Read To Me</button>
+            </div>
+          </div>
+          <div class="chapter-grid" id="chapterGrid"></div>
+        </section>
+
+        <section id="comicSection" class="section">
+          <div class="hero-card comic-hero">
+            <div class="eyebrow">RO’LYFE COMICVERSE</div>
+            <h1>ENTER THE STORY</h1>
+            <p class="subtitle">Stories. Characters. Ideas. Worlds.</p>
+            <p>A comic-inspired discovery layer for the RO’Lyfe ecosystem. Character names below are discovery links to third-party comic resources; the RO’Lyfe story universe will use original characters and original artwork.</p>
+          </div>
+
+          <div class="comic-toolbar">
+            <input id="characterSearch" type="search" placeholder="Search characters..." aria-label="Search characters">
+            <select id="comicCategory">
+              <option value="all">All Characters</option>
+              <option value="marvel">Marvel</option>
+              <option value="dc">DC</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="character-grid" id="characterGrid"></div>
+
+          <div class="shop-card">
+            <div>
+              <div class="eyebrow">COMIC SHOP</div>
+              <h2>Find. Collect. Explore.</h2>
+              <p>Explore comics, graphic novels, collectibles, auctions and related material through MyComicShop.</p>
+            </div>
+            <a class="primary link-btn" id="shopLink" target="_blank" rel="noopener noreferrer">Open MyComicShop</a>
+          </div>
+          <p class="disclosure">Affiliate disclosure: qualifying referrals may earn RO’Lyfe a commission or other compensation at no additional cost to you. Affiliate tracking is added only when an affiliate ID is configured.</p>
+        </section>
+
+        <section id="resourcesSection" class="section">
+          <div class="hero-card">
+            <div class="eyebrow">RESOURCE INTELLIGENCE</div>
+            <h2>Useful resources, organized.</h2>
+            <p>Affiliate and referral resources belong here instead of being scattered throughout the site.</p>
+          </div>
+          <div class="resource-grid" id="resourceGrid"></div>
+        </section>
+
+        <section id="toolsSection" class="section">
+          <div class="hero-card">
+            <div class="eyebrow">INTERACTIVE TOOLS</div>
+            <h2>Start with the basics.</h2>
+            <div class="tool-row">
+              <label>Risk amount <input id="riskAmount" type="number" value="100" min="0"></label>
+              <label>Reward amount <input id="rewardAmount" type="number" value="200" min="0"></label>
+              <button class="primary" id="rrBtn">Calculate R/R</button>
+            </div>
+            <div class="result" id="rrResult">Risk/Reward: —</div>
+          </div>
+        </section>
+
+        <section id="aboutSection" class="section">
+          <div class="hero-card">
+            <div class="eyebrow">ABOUT</div>
+            <h2>Plenty More To It</h2>
+            <p>This project is an educational and interactive RO’Lyfe experience. It is designed to grow into books, comic-inspired stories, tools, AI explanations and resource discovery.</p>
+            <p><strong>The chart is the main focus.</strong> Risk before reward. Document before execution.</p>
+          </div>
+        </section>
+      </section>
+
+      <aside class="right-panel">
+        <div class="panel-card">
+          <div class="eyebrow">MARKET PULSE</div>
+          <div class="pulse-row"><span>Trend</span><strong>Educational</strong></div>
+          <div class="pulse-row"><span>Momentum</span><strong>Observe</strong></div>
+          <div class="pulse-row"><span>Volatility</span><strong>Respect</strong></div>
+          <div class="pulse-row"><span>Risk</span><strong>First</strong></div>
+        </div>
+        <div class="panel-card">
+          <div class="eyebrow">TIMEFRAME LADDER</div>
+          <div class="ladder">
+            <span>6M</span><span>1D</span><span>4H</span><span>1H</span><span>15M</span><span>5M</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <button class="ai-float" id="aiBtn" aria-label="Open RO’Lyfe AI">✦</button>
+    <div class="ai-panel" id="aiPanel" hidden>
+      <div class="ai-head"><strong>RO’Lyfe AI</strong><button id="closeAi">×</button></div>
+      <p>Ask about the current experience.</p>
+      <button class="secondary ai-action" data-answer="The ComicVerse is a discovery layer. We use original RO’Lyfe storytelling rather than copying copyrighted characters.">Explain ComicVerse</button>
+      <button class="secondary ai-action" data-answer="The chart-first philosophy starts with the larger picture, then moves toward more detailed timeframes.">Explain Chart-First</button>
+      <button class="secondary ai-action" data-answer="Affiliate resources should be clearly labeled and never presented as guaranteed outcomes.">Explain Affiliate Links</button>
+      <div id="aiAnswer" class="ai-answer"></div>
+    </div>
+  </div>
+  <script src="data/links.js"></script>
+  <script src="data/book.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
